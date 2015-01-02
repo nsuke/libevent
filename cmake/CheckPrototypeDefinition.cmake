@@ -26,7 +26,7 @@
 
 function(CHECK_PROTOTYPE_DEFINITION _FUNCTION _PROTOTYPE _RETURN _HEADER _VARIABLE)
 
-    if ("${_VARIABLE}" MATCHES "^${_VARIABLE}$")
+    if (NOT DEFINED "${_VARIABLE}" OR "x${${_VARIABLE}}" STREQUAL "x${_VARIABLE}")
         set(CHECK_PROTOTYPE_DEFINITION_CONTENT "/* */\n")
 
         set(CHECK_PROTOTYPE_DEFINITION_FLAGS ${CMAKE_REQUIRED_FLAGS})
@@ -79,6 +79,6 @@ function(CHECK_PROTOTYPE_DEFINITION _FUNCTION _PROTOTYPE _RETURN _HEADER _VARIAB
                 "Determining if the prototype ${_FUNCTION} exists for ${_VARIABLE} failed with the following output:\n"
                 "${OUTPUT}\n\n${_SOURCE}\n\n")
         endif (${_VARIABLE})
-    endif("${_VARIABLE}" MATCHES "^${_VARIABLE}$")
+    endif(NOT DEFINED "${_VARIABLE}" OR "x${${_VARIABLE}}" STREQUAL "x${_VARIABLE}")
 
 endfunction(CHECK_PROTOTYPE_DEFINITION)
